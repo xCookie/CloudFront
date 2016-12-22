@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row">
+  <h2 style="margin:0px"> General Information </h2>
+  <hr>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <p> This application is meant to help testing Amazon CloudFront in a user-friendly way. Files are stored in an Amazon S3 bucket, located in Tokyo, Japan. And all the files are distributed all over the world through Amazon CloudFront. All the test results are stored in an Amazon RDS instance, also located in Tokyo, Japan.</p>
+
+    <p> We deployed four virtual machines in four different regions to test the performance of the distribution. We use both Amazon EC2 and Google Cloud Compute Engine as the testing machine, because we want to see whether the performance varies from ISPs to ISPs or from regions to regions. </p>
+
+    <p> In fact, you can also have a try by yourself. ^_^</p>
+  </div>
+
+  <div class="col-sm-12">
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <i class="fa fa-list" aria-hidden="true"></i>
+      Some Facts
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+        <th> Service </th>
+        <th> Role </th>
+        <th> Region </th>
+        <th> Address </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td> Amazon S3 </td>
+          <td> Store test files </td>
+          <td> Tokyo, Japan </td>
+          <td> https://s3-ap-northeast-1.amazonaws.com/elen6776/ </td>
+        </tr>
+        <tr>
+          <td> Amazon RDS - PostgreSQL </td>
+          <td> Store test results </td>
+          <td> Tokyo, Japan </td>
+          <td> elen6776db.crob5yjj4nnn.ap-northeast-1.rds.amazonaws.com/elen6776:5432 </td>
+        </tr>
+        <tr>
+          <td> Amazon CloudFront </td>
+          <td> Distribute the test file globally </td>
+          <td> Global </td>
+          <td> https://d2rkoaja68rbuk.cloudfront.net/ </td>
+        </tr>
+        <tr>
+          <td> Amazon EC2 </td>
+          <td> Testing machine </td>
+          <td> Singapore, Singapore </td>
+          <td> http://54.255.187.178:8111 </td>
+        </tr>
+        <tr>
+          <td> Amazon EC2 </td>
+          <td> Testing machine </td>
+          <td> London, United Kingdom </td>
+          <td> http://52.56.80.225:8111 </td>
+        </tr>
+        <tr>
+          <td> Amazon EC2 </td>
+          <td> Testing machine </td>
+          <td> California, United States </td>
+          <td> http://54.153.109.117:8111 </td>
+        </tr>
+        <tr>
+          <td> Google Cloud - Compute Engine </td>
+          <td> Testing machine </td>
+          <td> California, United States </td>
+          <td> http://104.199.122.245:8111 </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+</div>
+
+<div class="row">
+  <hr>
+  {% for region in regions %}
+  <div class="col-sm-6">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <i class="fa fa-list" aria-hidden="true"></i>
+      {{ region }}
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+        <th> File </th>
+        <th> Download Count </th>
+        <th> Avg Time without CDN (sec)</th>
+        <th> Avg Time with CDN (sec)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in files %}
+        <tr>
+          <td> {{ file }} </td>
+          <td> {{ stat[region][file]['count'] }} </td>
+          <td> {{ stat[region][file]['avg'] }} </td>
+          <td> {{ stat[region][file]['avgcdn'] }} </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

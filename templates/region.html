@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row">
+  <h2 style="margin:0px"> {{ regions[rid - 1] }} </h2>
+  <hr>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <i class="fa fa-list" aria-hidden="true"></i> Statictics
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+        <th> File </th>
+        <th> Download Count </th>
+        <th> Avg Time without CDN (sec)</th>
+        <th> Avg Time with CDN (sec)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for file in files %}
+        <tr>
+          <td> {{ file }} </td>
+          <td> {{ stat[file]['count'] }} </td>
+          <td> {{ stat[file]['avg'] }} </td>
+          <td> {{ stat[file]['avgcdn'] }} </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="panel panel-warning">
+      <div class="panel-heading">
+        <strong> <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Test it by yourself </strong>
+      </div>
+      <div class="panel-body">
+        <form class="form-horizontal" action="/r/{{rid}}/" method="post">
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="select_file">
+              <i class="fa fa-file" aria-hidden="true"></i> File
+            </label>
+            <div class="col-sm-8">
+              <select class="form-control" name="file" id="select_file" required>
+                {% for f in fid%}
+                <option value="{{f}}"> {{ files[f] }} </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="add_number">
+              <i class="fa fa-database" aria-hidden="true"></i> Number
+            </label>
+            <div class="col-sm-8">
+            <input type="number" step="1" min="1" class="form-control" name="number" id="add_number" value="1" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3">
+              <button type="submit" class="btn btn-success btn-block">
+                <i class="fa fa-cloud-download" aria-hidden="true"></i> Download in {{ regions[rid - 1] }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <strong> <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Test Result for File : {{test['file']}} </strong>
+      </div>
+      <div class="panel-body">
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label class="col-sm-4 control-label"> Download Count: </label>
+            <div class="col-sm-8">
+              <p class="form-control-static"> {{ test['count'] }} </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label"> Avg time without CDN: </label>
+            <div class="col-sm-8">
+              <p class="form-control-static"> {{ test['avg'] }} seconds </p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-4 control-label"> Avg time with CDN: </label>
+            <div class="col-sm-8">
+              <p class="form-control-static"> {{ test['avgcdn'] }} seconds </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

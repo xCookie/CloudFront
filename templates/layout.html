@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- ！ -->
+    <title> Study on Amazon CloudFront </title>
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='dist/css/sticky-footer-navbar.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='dist/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="{{ url_for('static', filename='dist/js/vendor/html5shiv.js') }}"></script>
+      <script src="{{ url_for('static', filename='dist/js/vendor/respond.min.js') }}"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/"> CloudFrontTest
+          </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="/"><i class="fa fa-list" aria-hidden="true">
+            </i> General Info </a></li>
+
+            <li><a href="http://yoururl/r/1/"><i class="fa fa-ship" aria-hidden="true">
+            </i> Singapore - EC2 </a></li>
+
+            <li><a href="http://yoururl/r/2/"><i class="fa fa-bus" aria-hidden="true">
+            </i> London - EC2 </a></li>
+
+            <li><a href="http://yoururl/r/3/"><i class="fa fa-sun-o" aria-hidden="true">
+            </i> California - EC2 </a></li>
+
+            <li><a href="http://yoururl/r/4/"><i class="fa fa-plane" aria-hidden="true">
+            </i> California - Google </a></li>
+            <!--
+            <li><a href="http://yoururl/5/"><i class="fa fa-rocket" aria-hidden="true">
+            </i> Shanghai - Alibaba </a></li>
+            -->
+
+            <li><a href="#" data-toggle="modal" data-target="#dbModal">
+              <i class="fa fa-info-circle" aria-hidden="true">
+            </i> About Us </a> </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div id="dbModal" class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+      <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">
+              <i class="fa fa-info-circle" aria-hidden="true"> About Us </i>
+            </h4>
+          </div>
+          <div class="modal-body text-center">
+            <h4> ELEN 6776 Content Distribution Networks, Fall 2016 </h4>
+            <h4> Columbia University </h4>
+            <p> Qi Xu, qx2155 </p>
+            <p> Xiaowen Li, xl2519 </p>
+            <p> Guanlin Chen, gc2666 </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <p style="padding:25px"></p>
+      {% for message in get_flashed_messages() %}
+        <div class="row">
+          <div class="alert alert-warning alert-dismissible text-center" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> {{ message }}
+          </div>
+        </div>
+      {% endfor %}
+
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-center text-muted">
+          Copyright <i class="fa fa-copyright" aria-hidden="true"></i> 2016
+          <a href="https://elene6776-001-2016-3.wikispaces.columbia.edu/" target="_blank"> ELEN 6776 | Columbia University </a>
+        </p>
+      </div>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{{ url_for('static', filename='dist/js/jquery.min.js') }}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ url_for('static', filename='dist/js/bootstrap.min.js') }}"></script>
+  </body>
+</html>
