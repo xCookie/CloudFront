@@ -1,5 +1,6 @@
 # Study on Amazon CloudFront
 ELEN 6776 Content Distribution Networks, Fall 2016
+
 By Qi Xu, Xiaowen Li, and Guanlin Chen, Columbia University
 
 1. Environment: Python 2.7, Flask 0.11, SQLAlchemy, and PostgresSQL 9.x
